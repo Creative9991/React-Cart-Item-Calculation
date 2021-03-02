@@ -1,4 +1,4 @@
-# React: HackerShop Checkout
+# React: Cart-Item-Calculation
 
 ## Environment 
 
