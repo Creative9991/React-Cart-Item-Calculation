@@ -7,8 +7,8 @@ import 'h8k-components';
 const title = "HackerShop";
 
 class App extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         const products = [...PRODUCTS].map((product, index) => {
             product.id = index + 1;
             product.image = `/images/items/${product.name.toLocaleLowerCase()}.png`;
@@ -31,6 +31,7 @@ class App extends Component {
 
     addToCart(index) {
         const products = this.state.products;
+        //console.log(index);
         products[index].cartQuantity = 1;
         let cart = {...this.state.cart};
         cart.items.push({
@@ -50,7 +51,9 @@ class App extends Component {
         products[index].cartQuantity = 0;
         let cart = {...this.state.cart};
         let cartIndex = this.state.cart.items.findIndex(item => item.id === products[index].id);
+        if(cartIndex !== -1){
         cart.items.splice(cartIndex, 1);
+        }
         this.setState({
             cart,
             products
@@ -62,10 +65,9 @@ class App extends Component {
 
         return (
             <div>
-                <h8k-navbar header={title}></h8k-navbar>
                 <div className="layout-row shop-component">
-                    <ProductList products={this.state.products}/>
-                    <Cart cart={this.state.cart}/>
+                    <ProductList addMethod={this.addToCart} removeMethod ={this.removeFromCart} products={this.state.products}/>
+                    <Cart cart={this.state.cart} />
                 </div>
             </div>
         );

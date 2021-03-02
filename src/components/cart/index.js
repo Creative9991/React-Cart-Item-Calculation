@@ -3,7 +3,46 @@ import "./index.css";
 
 export default class Cart extends Component {
 
+    constructor(props){
+        super(props)
+        this.state = {
+            discountSelected : 0
+        }
+        //this.handleChange= this.handleChange.bind(this);
+    }
+ 
+    handleChange(e) {
+        let {value} = e.target;
+       
+        this.setState({
+          discountSelected: value,
+        
+        });
+        console.log(this.state);
+        
+        }
+
     render() {
+        //discountTen = 10;
+        console.log(this.state);
+        const { discountSelected} = this.state
+        var totalPrice = 0;
+            var subTotalVal = 0;
+        if(typeof this.props.cart.items !== 'undefined' &&  this.props.cart.items.length > 0){
+            this.props.cart.items.forEach((cartItem) => {
+                console.log(cartItem);
+                subTotalVal = subTotalVal + cartItem.price;
+            })
+        }
+
+
+        if(subTotalVal >= discountSelected){
+         totalPrice = subTotalVal - discountSelected;
+        }else{
+            totalPrice = subTotalVal
+            //document.getElementsByClassName('')
+        }
+
         return (
             <div className="card outlined my-16 mr-25 flex-30">
                 <section className="layout-row align-items-center justify-content-center px-16">
@@ -20,8 +59,15 @@ export default class Cart extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                    {
+                    { 
                         this.props.cart.items.map((cartItem, idx) => {
+                            this.props.cart.subTotal = +this.props.cart.subTotal
+                           
+                            console.log(this.props.cart.items[idx].price);
+                            
+                            // this.props.subTotal,
+                            // this.props.totalPrice,
+                            // this.props.discount
                             return (
                                 <tr data-testid={'cart-item-' + idx}
                                     key={idx + 1}
@@ -44,24 +90,27 @@ export default class Cart extends Component {
                 <div className="layout-row justify-content-between align-items-center px-8 mx-12">
                     <h5>Select Coupon</h5>
                     <select data-testid="cart-coupon"
-                            className="coupon-select">
+                            className="coupon-select"
+                            onChange={(e) => {
+                                this.handleChange(e)
+                            }}>
                         <option value="0">None</option>
-                        <option value="10">OFF10</option>
+                        <option value="10" >OFF10</option>
                         <option value="20">OFF20</option>
                     </select>
                 </div>
                 <ul className="bordered inset ma-0 px-8 mt-30">
                     <li className="layout-row justify-content-between py-12 caption font-weight-light">
                         <span>Subtotal</span>
-                        <span data-testid="cart-subtotal">${this.props.cart.subTotal}</span>
+                        <span data-testid="cart-subtotal">${subTotalVal}</span>
                     </li>
                     <li className="layout-row justify-content-between py-12 caption font-weight-light">
                         <span>Discount (-)</span>
-                        <span className="discount" data-testid="cart-discount">${this.props.cart.discount}</span>
+                        <span className="discount" data-testid="cart-discount">${discountSelected}</span>
                     </li>
                     <li className="layout-row justify-content-between py-12 font-weight-bold">
                         <span>Total</span>
-                        <span data-testid="cart-total">${this.props.cart.totalPrice}</span>
+                        <span data-testid="cart-total">${totalPrice}</span>
                     </li>
                 </ul>
             </div>

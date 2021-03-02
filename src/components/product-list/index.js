@@ -2,12 +2,28 @@ import React, {Component} from "react";
 import "./index.css";
 
 export default class ProductList extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        this.state= {
+            cartVisibility : {}
+        }
+    }
+    addClick = (index) => {
+       
+        var cartButtonIds = this.state.cartVisibility;
+      cartButtonIds[index] = 'hidden'
+        this.setState({ cartVisibility : cartButtonIds})
+        this.props.addMethod(index);
+    }
+    removeClick = (index, heading) => {
+        var cartButtonIds = this.state.cartVisibility;
+        cartButtonIds[index] = 'visible'
+          this.setState({ cartVisibility : cartButtonIds})
+        this.props.removeMethod(index , heading);
     }
 
     render() {
-
+        const {cartVisibility} = this.state
         return (
             <div className="layout-row wrap justify-content-center flex-70 app-product-list">
                 {this.props.products.map((product, i) => {
@@ -23,11 +39,20 @@ export default class ProductList extends Component {
                                     <p className="ma-0 mt-8 text-center">${product.price}</p>
                                 </div>
                                 <div className="card-actions justify-content-center pa-4">
-                                    <button className="x-small outlined" data-testid="btn-item-add">
-                                        Add To Cart
-                                    </button>
-
-                                    <button className="x-small danger" data-testid="btn-item-remove">
+                                    {
+                                         cartVisibility[i] === 'hidden' ? (
+                                            <button className="x-small outlined" style = {{visibility : 'hidden'}} data-testid="btn-item-add" onClick={(e) => this.addClick(i)}>
+                                            Add To Cart
+                                         </button>
+                                         
+                                        ) : (
+                                            <button className="x-small outlined" style = {{visibility : 'visible'}} data-testid="btn-item-add" onClick={(e) => this.addClick(i)}>
+                                            Add To Cart
+                                        </button>
+                                        )
+                                    }
+                                   
+                                    <button className="x-small danger" data-testid="btn-item-remove" onClick={(e) => this.removeClick(i, product.heading)}>
                                         Remove
                                     </button>
                                 </div>

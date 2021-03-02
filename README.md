@@ -6,9 +6,6 @@
 - Node Version: ^12.18.3
 - Default Port: 8000
 
-## Application Demo:
-
-![](https://hrcdn.net/s3_pub/istreet-assets/C4mOIX3YmQsydeXZCrbYvw/hackershop-checkout.gif)
 
 ## Functionality Requirements
 
@@ -48,23 +45,6 @@ Each item in the cart, Type CartItem has the following properties:
 - quantity: The quantity of the item in the cart [NUMBER]
 - price: The total amount of the item in cart. (quantity x product.price) [NUMBER]
 
-## Testing Requirements
-
-The following data-testid/class attributes are required in the component for the tests to pass:
-
-- Each product item in the Listing component should have the class product-item.
-- Each Add to Cart button should have the data-testid attribute 'btn-item-add'.
-- Each Remove to Cart button should have the data-testid attribute 'btn-item-add'.
-- The table rows `<tr>` in the Cart Component corresponding to items in the cart should have the data-testid attribute of cart-item-0, cart-item-1, and so on.
-- The table data `<td>` containing the Name of the Item in the cart should have the data-testid attribute 'cart-item-name'.
-- The table data `<td>` containing the Quantity of the Item in the cart should have the data-testid attribute 'cart-item-quantity'.
-- The table data `<td>` containing the Price of the Item in the cart should have the data-testid attribute 'cart-item-price'.
-- The Coupon Select input should have a data-testid attribute 'cart-coupon'
-- The Cart Subtotal value container should have a data-testid 'cart-subtotal'. 
-- The Cart Discount value container should have a data-testid 'cart-discount'. 
-- The Cart Total Price value container should have a data-testid 'cart-total'. 
-
-_Note: Please note that the component has the above data-testid attributes for test cases and certain classes and ids for rendering purposes. It is advised not to change them._
 
 
 ## Project Specifications
